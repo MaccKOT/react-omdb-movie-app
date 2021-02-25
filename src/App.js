@@ -41,7 +41,9 @@ function App() {
   };
 
   const addFavoriteMovie = (movie) => {
-    // TODO check for movie already in favorites!
+    // if movie already in favorites - do nothing
+    if (favorites.includes(movie)) return;
+
     const newFavoriteList = [...favorites, movie];
     setFavorites(newFavoriteList);
     saveToLocalStorage(newFavoriteList);
