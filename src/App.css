@@ -14,7 +14,7 @@ body {
 }
 
 .image-container:hover {
-  cursor: pointer;
+  cursor: normal;
   transform: scale(1.1);
 }
 
@@ -32,4 +32,5 @@ body {
   font-size: 20px;
   padding: 20px;
   text-align: center;
+  cursor: pointer;
 }

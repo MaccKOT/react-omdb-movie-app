@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react';
 import MovieList from './components/MovieList';
 import Header from './components/Header';
 import SearchBar from './components/SearchBar';
+import AddFavorites from './components/AddFavorites';
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [searchValue, setSearchValue] = useState('');
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     getMoviesRequest(searchValue);
@@ -25,6 +27,10 @@ function App() {
     }
   };
 
+  const addFavoriteMovie = (movie) => {
+    setFavorites([...favorites, movie]);
+  };
+
   return (
     <div className='container-fluid movie-app'>
       <div className='row d-flex align-items-center mt-4 mb-4'>
@@ -32,7 +38,11 @@ function App() {
         <SearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
       </div>
       <div className='row'>
-        <MovieList movies={movies} />
+        <MovieList
+          movies={movies}
+          favoriteComponent={AddFavorites}
+          handleFavoriteClick={addFavoriteMovie}
+        />
       </div>
     </div>
   );
