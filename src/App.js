@@ -16,6 +16,18 @@ function App() {
     getMoviesRequest(searchValue);
   }, [searchValue]);
 
+  useEffect(() => {
+    // get favorites from localstorage
+    const movieFavorites = JSON.parse(
+      localStorage.getItem('react-movie-app-favorites')
+    );
+    if (movieFavorites !== '') setFavorites(movieFavorites);
+  }, []);
+
+  const saveToLocalStorage = (items) => {
+    localStorage.setItem('react-movie-app-favorites', JSON.stringify(items));
+  };
+
   const getMoviesRequest = async (searchValue) => {
     // http://www.omdbapi.com/?s=star%20wars&apikey=xxxxxx
     const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=${process.env.REACT_APP_OMDB_API_KEY}`;
@@ -30,7 +42,9 @@ function App() {
 
   const addFavoriteMovie = (movie) => {
     // TODO check for movie already in favorites!
-    setFavorites([...favorites, movie]);
+    const newFavoriteList = [...favorites, movie];
+    setFavorites(newFavoriteList);
+    saveToLocalStorage(newFavoriteList);
   };
 
   const RemoveFavoriteMovie = (movie) => {
@@ -38,6 +52,7 @@ function App() {
       (elem) => elem.imdbID !== movie.imdbID
     );
     setFavorites(filteredFavorites);
+    saveToLocalStorage(filteredFavorites);
   };
 
   return (

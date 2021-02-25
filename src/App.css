@@ -34,3 +34,16 @@ body {
   text-align: center;
   cursor: pointer;
 }
+
+/* bootstrap css override */
+input.form-control {
+  background-color: #302a2a;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+input.form-control:focus {
+  background-color: #302a2a;
+  color: white;
+  border-color: gray;
+  box-shadow: 0 0 0 0.2rem rgba(126, 135, 145, 0.25);
+}
