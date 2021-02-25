@@ -5,6 +5,7 @@ import MovieList from './components/MovieList';
 import Header from './components/Header';
 import SearchBar from './components/SearchBar';
 import AddFavorites from './components/AddFavorites';
+import RemoveFavorites from './components/RemoveFavorites';
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -28,7 +29,15 @@ function App() {
   };
 
   const addFavoriteMovie = (movie) => {
+    // TODO check for movie already in favorites!
     setFavorites([...favorites, movie]);
+  };
+
+  const RemoveFavoriteMovie = (movie) => {
+    const filteredFavorites = favorites.filter(
+      (elem) => elem.imdbID !== movie.imdbID
+    );
+    setFavorites(filteredFavorites);
   };
 
   return (
@@ -42,6 +51,16 @@ function App() {
           movies={movies}
           favoriteComponent={AddFavorites}
           handleFavoriteClick={addFavoriteMovie}
+        />
+      </div>
+      <div className='row d-flex align-items-center mt-4 mb-4'>
+        <Header heading={'Favorites'} />
+      </div>
+      <div className='row'>
+        <MovieList
+          movies={favorites}
+          favoriteComponent={RemoveFavorites}
+          handleFavoriteClick={RemoveFavoriteMovie}
         />
       </div>
     </div>
